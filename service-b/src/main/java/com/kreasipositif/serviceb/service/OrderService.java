@@ -17,10 +17,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * Order Service - demonstrates usage of shared utility library
- * Uses: IdGenerator, DateFormatter, NumberFormatter, and StringValidator from utility-library
- */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -31,16 +27,11 @@ public class OrderService {
     private final NumberFormatter numberFormatter;
     private final StringValidator stringValidator;
 
-    // In-memory storage for demo purposes
     private final List<Order> orders = new ArrayList<>();
 
-    /**
-     * Creates a new order with validation and formatting using utility library
-     */
     public OrderResponse createOrder(CreateOrderRequest request) {
         log.info("Creating order for customer: {}", request.getCustomerId());
 
-        // Validate using StringValidator from utility library
         if (!stringValidator.isNotEmpty(request.getCustomerId())) {
             throw new IllegalArgumentException("Customer ID is required");
         }
@@ -57,7 +48,6 @@ public class OrderService {
             throw new IllegalArgumentException("Unit price must be greater than 0");
         }
 
-        // Generate IDs using IdGenerator from utility library
         String orderId = idGenerator.generateUUID();
         String orderNumber = "ORD-" + idGenerator.generateAlphanumeric(8);
         
@@ -81,9 +71,6 @@ public class OrderService {
         return convertToResponse(order);
     }
 
-    /**
-     * Retrieves all orders
-     */
     public List<OrderResponse> getAllOrders() {
         log.info("Fetching all orders. Total count: {}", orders.size());
         return orders.stream()
@@ -91,9 +78,6 @@ public class OrderService {
             .collect(Collectors.toList());
     }
 
-    /**
-     * Finds an order by ID
-     */
     public Optional<OrderResponse> getOrderById(String id) {
         log.info("Fetching order with ID: {}", id);
         return orders.stream()
@@ -102,10 +86,6 @@ public class OrderService {
             .map(this::convertToResponse);
     }
 
-    /**
-     * Converts Order entity to OrderResponse DTO
-     * Uses DateFormatter and NumberFormatter from utility library
-     */
     private OrderResponse convertToResponse(Order order) {
         return new OrderResponse(
             order.getId(),

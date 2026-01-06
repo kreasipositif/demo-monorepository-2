@@ -16,10 +16,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * User Service - demonstrates usage of shared utility library
- * Uses: IdGenerator, DateFormatter, and StringValidator from utility-library
- */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -29,16 +25,11 @@ public class UserService {
     private final DateFormatter dateFormatter;
     private final StringValidator stringValidator;
 
-    // In-memory storage for demo purposes
     private final List<User> users = new ArrayList<>();
 
-    /**
-     * Creates a new user with validation using utility library
-     */
     public UserResponse createUser(CreateUserRequest request) {
         log.info("Creating user with email: {}", request.getEmail());
 
-        // Validate using StringValidator from utility library
         if (!stringValidator.isNotEmpty(request.getName())) {
             throw new IllegalArgumentException("Name is required");
         }
@@ -51,7 +42,6 @@ public class UserService {
             throw new IllegalArgumentException("Invalid phone format");
         }
 
-        // Generate ID using IdGenerator from utility library
         String userId = idGenerator.generateUUID();
         
         LocalDateTime now = LocalDateTime.now();
@@ -70,9 +60,6 @@ public class UserService {
         return convertToResponse(user);
     }
 
-    /**
-     * Retrieves all users
-     */
     public List<UserResponse> getAllUsers() {
         log.info("Fetching all users. Total count: {}", users.size());
         return users.stream()
@@ -80,9 +67,6 @@ public class UserService {
             .collect(Collectors.toList());
     }
 
-    /**
-     * Finds a user by ID
-     */
     public Optional<UserResponse> getUserById(String id) {
         log.info("Fetching user with ID: {}", id);
         return users.stream()
@@ -91,10 +75,6 @@ public class UserService {
             .map(this::convertToResponse);
     }
 
-    /**
-     * Converts User entity to UserResponse DTO
-     * Uses DateFormatter from utility library to format dates
-     */
     private UserResponse convertToResponse(User user) {
         return new UserResponse(
             user.getId(),

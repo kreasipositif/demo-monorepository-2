@@ -107,7 +107,7 @@ class NumberFormatterTest {
         String result = numberFormatter.formatPercentage(0.755);
 
         // Assert
-        assertTrue(result.contains("75") || result.contains("76")); // May round
+        assertTrue(result.contains("75") || result.contains("76"));
         assertTrue(result.contains("%"));
     }
 }

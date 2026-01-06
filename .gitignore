@@ -58,3 +58,18 @@ logs/
 
 # Spring Boot
 spring-boot-devtools.properties
+
+# React / Node.js
+node_modules/
+frontend/build/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp
+.pnp.js
+coverage/
+.eslintcache
