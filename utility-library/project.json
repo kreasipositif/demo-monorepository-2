@@ -1,0 +1,32 @@
+{
+  "name": "utility-library",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "utility-library/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/target"],
+      "options": {
+        "command": "mvn clean install -DskipTests",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/target/surefire-reports"],
+      "options": {
+        "command": "mvn test",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "mvn clean",
+        "cwd": "{projectRoot}"
+      }
+    }
+  },
+  "tags": ["type:library", "scope:shared"]
+}
